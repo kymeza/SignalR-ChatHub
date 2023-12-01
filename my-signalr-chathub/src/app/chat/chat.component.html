@@ -1,0 +1,14 @@
+<div>
+    <input [(ngModel)]="username" type="text" placeholder="Username" pInputText [readonly]="isUsernameSet">
+    <button pButton type="button" label="Join Chat" icon="pi pi-sign-in" (click)="join()" *ngIf="!isUsernameSet"></button>
+  </div>
+  
+  <div *ngIf="isUsernameSet">
+    <input [(ngModel)]="message" type="text" placeholder="Type a message" pInputText>
+    <button pButton type="button" label="Send" icon="pi pi-send" (click)="send()"></button>
+  
+    <div *ngFor="let msg of messages" class="message">
+      {{msg}}
+    </div>
+</div>
+  
