@@ -1,25 +1,25 @@
-﻿using my_signalr_chathub_backend.Models.Config;
-using my_signalr_chathub_backend.Services.Session;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Text.Json;
+﻿using System.Security.AccessControl;
 using my_signalr_chathub_backend.Models;
+using System.Text.Json;
+using System.Text;
+using my_signalr_chathub_backend.Models.Config;
+using my_signalr_chathub_backend.Services.Session;
 
 namespace my_signalr_chathub_backend.Services.Login
 {
     public class LoginService : ILoginService
     {
         private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly AccessControlServerConfig _accessControlServerConfig;
-        private readonly SessionManager _sessionManager;
-        private readonly IHttpContextAccessor _httpContextAccessor; // You need to inject this to access the HttpContext
+        private readonly ISessionStore _sessionStore;
 
-        public LoginService(HttpClient httpClient, AccessControlServerConfig accessControlServerConfig, SessionManager sessionManager, IHttpContextAccessor httpContextAccessor)
+        public LoginService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, AccessControlServerConfig accessControlServerConfig, ISessionStore sessionStore)
         {
             _httpClient = httpClient;
-            _accessControlServerConfig = accessControlServerConfig;
-            _sessionManager = sessionManager;
             _httpContextAccessor = httpContextAccessor;
+            _accessControlServerConfig = accessControlServerConfig;
+            _sessionStore = sessionStore;
         }
 
         public async Task<LoginResult> LoginAsync(string rut, string password, string codigoAplicacionOrigen)
@@ -51,9 +51,11 @@ namespace my_signalr_chathub_backend.Services.Login
 
                 if (!string.IsNullOrWhiteSpace(content))
                 {
+                    SessionManager sessionManager = new SessionManager(_sessionStore);
+
                     var jwtToken = ExtractTokenFromResponse(content);
-                    var sessionId = _sessionManager.CreateSession(jwtToken);
-                    SetSessionCookie(sessionId); // Pass sessionId instead of jwtToken
+                    var sessionId = sessionManager.CreateSession(jwtToken);
+                    SetSessionCookie(sessionId, sessionManager); // Pass sessionId instead of jwtToken
 
                     // Assume ExtractUserInfo is another method that extracts user info from the response
 
@@ -67,13 +69,12 @@ namespace my_signalr_chathub_backend.Services.Login
                 return new LoginResult
                 {
                     Success = false,
-                    Message = "Login failed. Please check your credentials."
+                    Message = "Login failed. Invalid credentials."
                 };
 
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
-                // Handle any errors here
                 Console.WriteLine($"Request exception: {e.Message}");
                 return new LoginResult
                 {
@@ -81,24 +82,8 @@ namespace my_signalr_chathub_backend.Services.Login
                     Message = "Login failed. Something went wrong."
                 };
             }
-
         }
 
-        private void SetSessionCookie(string sessionId)
-        {
-            // Create a cookie with the session ID
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                // Set the cookie to expire at the same time as the JWT token
-                Expires = _sessionManager.GetSessionExpiry(sessionId) // This method needs to be implemented in SessionManager
-            };
-
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("SessionCookie", sessionId, cookieOptions);
-        }
-
-        
         private string ExtractTokenFromResponse(string responseContent)
         {
             // Extracts the token from the ListadoTokens array in the response
@@ -110,7 +95,19 @@ namespace my_signalr_chathub_backend.Services.Login
 
             throw new InvalidOperationException("Token not found in response.");
         }
-        
+
+        private void SetSessionCookie(string sessionId, SessionManager sessionManager)
+        {
+            // Create a cookie with the session ID
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                // Set the cookie to expire at the same time as the JWT token
+                Expires = sessionManager.GetSessionExpiry(sessionId) // This method needs to be implemented in SessionManager
+            };
+
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("SessionCookie", sessionId, cookieOptions);
+        }
     }
 }
-

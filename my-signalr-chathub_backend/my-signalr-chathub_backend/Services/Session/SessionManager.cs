@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Session;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 
 namespace my_signalr_chathub_backend.Services.Session
 {
-    // Located in Services/SessionManager.cs
     public class SessionManager
     {
+        //TO-DO: Implement Dispose
         private readonly ISessionStore _sessionStore;
-
         public SessionManager(ISessionStore sessionStore)
         {
             _sessionStore = sessionStore;
@@ -50,9 +48,6 @@ namespace my_signalr_chathub_backend.Services.Session
             throw new NotImplementedException();
         }
 
-   
-       
+
     }
-
-
 }

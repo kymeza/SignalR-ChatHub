@@ -5,7 +5,6 @@ namespace my_signalr_chathub_backend.Services.Session
     public class InMemorySessionStore : ISessionStore
     {
         private readonly ConcurrentDictionary<string, (string, DateTimeOffset?)> _store = new();
-
         public void Store(string sessionId, string jwtToken, DateTimeOffset? expiration)
         {
             _store[sessionId] = (jwtToken, expiration);
@@ -36,5 +35,4 @@ namespace my_signalr_chathub_backend.Services.Session
             _store[sessionId] = (jwtToken, expiration);
         }
     }
-
 }

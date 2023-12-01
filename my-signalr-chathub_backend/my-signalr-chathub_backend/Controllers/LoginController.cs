@@ -8,7 +8,7 @@ namespace my_signalr_chathub_backend.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILoginService _loginService; // You need to inject this
+        private readonly ILoginService _loginService;
         public LoginController(ILoginService loginService)
         {
             _loginService = loginService;
@@ -25,6 +25,7 @@ namespace my_signalr_chathub_backend.Controllers
                 return BadRequest("Invalid parameters");
             }
 
+
             // Call the login service
             var result = await _loginService.LoginAsync(rut, password, codigoAplicacionOrigen);
 
@@ -38,5 +39,6 @@ namespace my_signalr_chathub_backend.Controllers
             }
 
         }
+
     }
 }

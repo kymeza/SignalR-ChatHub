@@ -8,4 +8,3 @@
         void Update(string sessionId, string jwtToken, DateTimeOffset? expiration);
     }
 }
-

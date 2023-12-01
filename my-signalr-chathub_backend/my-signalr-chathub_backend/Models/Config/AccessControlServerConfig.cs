@@ -6,5 +6,4 @@
         public string? HeaderKey { get; set; }
         public string? HeaderValue { get; set; }
     }
-
 }

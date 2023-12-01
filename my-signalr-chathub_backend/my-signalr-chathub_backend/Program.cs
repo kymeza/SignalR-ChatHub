@@ -3,6 +3,7 @@ using my_signalr_chathub_backend.Models.Config;
 using my_signalr_chathub_backend.Services.Login;
 using my_signalr_chathub_backend.Services.Session;
 
+
 namespace my_signalr_chathub_backend
 {
     public class Program
@@ -22,7 +23,6 @@ namespace my_signalr_chathub_backend
 
             builder.Services.AddHttpContextAccessor();
 
-
             // Add services to the container.
             builder.Services.AddSignalR();
 
@@ -30,15 +30,15 @@ namespace my_signalr_chathub_backend
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+
             AccessControlServerConfig accessControlServerConfig = builder.Configuration.GetSection("AccessControlServerConfig").Get<AccessControlServerConfig>();
 
             // Service Registration
-            builder.Services.AddSingleton<ISessionStore, InMemorySessionStore>(); // Or use a different implementation for production
-            builder.Services.AddScoped<SessionManager>();
+            
             builder.Services.AddSingleton(accessControlServerConfig);
             builder.Services.AddHttpClient<ILoginService, LoginService>();
-            
+            builder.Services.AddSingleton<ISessionStore, InMemorySessionStore>();
+
 
 
             var app = builder.Build();
@@ -53,7 +53,7 @@ namespace my_signalr_chathub_backend
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            
 
             app.MapControllers();
 
