@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/my-signalr-chathub_backend/my-signalr-chathub_backend/appsettings.json
