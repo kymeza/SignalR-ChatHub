@@ -4,7 +4,7 @@ namespace my_signalr_chathub_backend.Hubs
 {
     public class ChatHub : Hub
     {
-        public static Dictionary<string, string> Users { get; set; } = new Dictionary<string, string>();
+        private static Dictionary<string, string> Users { get; set; } = new Dictionary<string, string>();
 
         public async Task SetUsername(string username)
         {

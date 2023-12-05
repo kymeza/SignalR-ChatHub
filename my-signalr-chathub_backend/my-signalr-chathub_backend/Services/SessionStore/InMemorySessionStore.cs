@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace my_signalr_chathub_backend.Services.Session
+namespace my_signalr_chathub_backend.Services.SessionStore
 {
     public class InMemorySessionStore : ISessionStore
     {

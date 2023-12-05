@@ -1,7 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using my_signalr_chathub_backend.Auth;
 using my_signalr_chathub_backend.Hubs;
 using my_signalr_chathub_backend.Models.Config;
 using my_signalr_chathub_backend.Services.Login;
 using my_signalr_chathub_backend.Services.Session;
+using my_signalr_chathub_backend.Services.SessionManager;
+using my_signalr_chathub_backend.Services.SessionStore;
 
 
 namespace my_signalr_chathub_backend
@@ -38,8 +42,14 @@ namespace my_signalr_chathub_backend
             builder.Services.AddSingleton(accessControlServerConfig);
             builder.Services.AddHttpClient<ILoginService, LoginService>();
             builder.Services.AddSingleton<ISessionStore, InMemorySessionStore>();
+            builder.Services.AddScoped<ISessionManager, SessionManager>();
 
+            builder.Services.AddAuthentication("JWTAuthScheme")
+                .AddScheme<AuthenticationSchemeOptions, JWTAuthenticationHandler>("JWTAuthScheme", null);
 
+            builder.Services.AddAuthorization();
+
+           
 
             var app = builder.Build();
 
@@ -52,8 +62,9 @@ namespace my_signalr_chathub_backend
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.MapControllers();
 
