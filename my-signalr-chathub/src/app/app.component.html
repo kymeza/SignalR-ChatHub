@@ -1,3 +1,12 @@
 <router-outlet></router-outlet>
 
 <app-chat></app-chat>
+
+<!-- app.component.html -->
+<app-login *ngIf="!(isLoggedIn$ | async)">
+
+
+
+</app-login>
+<!-- The rest of your application content -->
+
