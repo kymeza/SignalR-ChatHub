@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
-import { selectAuthLoading } from '../selectors/auth.selectors';
+import { selectAuthLoading, selectLoginError } from '../selectors/auth.selectors';
 import { Observable } from 'rxjs';
 import { AuthState } from '../reducers/auth.reducer'; // make sure to import the AppState interface
 import { CommonModule } from '@angular/common';
@@ -28,25 +28,35 @@ interface AppState {
     <div *ngIf="loading$ | async">
     Loading...
     </div>
-    
+    <div *ngIf="(loginError$ | async) as error">
+      {{ error }} 
+    </div>
+
   `
 })
+
 export class LoginComponent {
   rut: string = '';
   password: string = '';
   codigoAplicacionOrigen: string = '';
   loading$!: Observable<boolean>;
+  loginError$!: Observable<string | null>;
 
 
-  constructor(private store: Store<AppState>) { // Use the AppState interface here
+
+  constructor(private store: Store<AppState>) {
     this.loading$ = this.store.select(selectAuthLoading);
+    this.loginError$ = this.store.select(selectLoginError);
   }
 
   login() {
-    this.store.dispatch(AuthActions.login({ 
-      rut: this.rut, 
-      password: this.password, 
-      codigoAplicacionOrigen: this.codigoAplicacionOrigen 
+    this.store.dispatch(AuthActions.resetLoginError());
+    this.store.dispatch(AuthActions.login({
+      rut: this.rut,
+      password: this.password,
+      codigoAplicacionOrigen: this.codigoAplicacionOrigen
     }));
   }
+  
+
 }

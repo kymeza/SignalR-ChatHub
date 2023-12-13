@@ -8,5 +8,57 @@
 
 
 </app-login>
-<!-- The rest of your application content -->
+
+<div class="container">
+    <div class="container-nav">
+      <nav>
+        <div class="nav-numbers-ul">
+          <div [ngClass]="step == 1 ? 'step-number fill' : 'step-number'">
+            <div class="step-number-circle">1</div>
+          </div>
+          <div [ngClass]="step == 2 ? 'step-number fill' : 'step-number'">
+            <div class="step-number-circle">2</div>
+          </div>
+          <div [ngClass]="step == 3 ? 'step-number fill' : 'step-number'">
+            <div class="step-number-circle">3</div>
+          </div>
+          <div [ngClass]="step >= 4 ? 'step-number fill' : 'step-number'">
+            <div class="step-number-circle">4</div>
+          </div>
+        </div>
+        <div class="nav-numbers-second-ul mobile-hide">
+          <div class="nav-numbers-second-ul-div">
+            <div class="pastel">Step 1</div>
+            <div>Your Info</div>
+          </div>
+          <div class="nav-numbers-second-ul-div">
+            <div class="pastel">Step 2</div>
+            <div>Select plan</div>
+          </div>
+          <div class="nav-numbers-second-ul-div">
+            <div class="pastel">Step 3</div>
+            <div>Add-ons</div>
+          </div>
+          <div class="nav-numbers-second-ul-div">
+            <div class="pastel">Step 4</div>
+            <div>Summary</div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="form-container">
+      <app-form
+        step="{{ step }}"
+        [costMap]="costMap"
+        [multiStep]="multiStep"
+        (submit)="submit()"
+        [yearlyToggle]="yearlyToggle"
+        (toggled)="term()"
+        (decrease)="decreaseStep()"
+        (increase)="increaseStep()"
+        (changeEvent)="change()"
+      ></app-form>
+    </div>
+  </div>
+  
 

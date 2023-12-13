@@ -18,7 +18,7 @@ export class AuthEffects {
       switchMap(({ rut, password, codigoAplicacionOrigen }) =>
         this.authService.login(rut, password, codigoAplicacionOrigen).pipe(
           map(() => AuthActions.loginSuccess()),
-          catchError(error => of(AuthActions.loginFailure({ error }))),
+          catchError(error => of(AuthActions.loginFailure({ error: error.message }))),
           tap(() => this.store.dispatch(AuthActions.loginEnd()))
         )
       )

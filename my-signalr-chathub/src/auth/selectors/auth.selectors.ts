@@ -5,5 +5,10 @@ export const selectAuthState = (state: { auth: AuthState }) => state.auth;
 
 export const selectAuthLoading = createSelector(
   selectAuthState,
-  (state: AuthState) => state.loading
+  (state: AuthState) => state.loading,
+);
+
+export const selectLoginError = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.loginError
 );

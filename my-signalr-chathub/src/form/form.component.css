@@ -14,17 +14,17 @@
   
   @font-face {
     font-family: Ubuntu;
-    src: url(./assets/fonts/Ubuntu-Regular.ttf);
+    src: url(../assets/fonts/Ubuntu-Regular.ttf);
   }
   
   @font-face {
     font-family: Ubuntu-Medium;
-    src: url(./assets/fonts/Ubuntu-Medium.ttf);
+    src: url(../assets/fonts/Ubuntu-Medium.ttf);
   }
   
   @font-face {
     font-family: Ubuntu-Bold;
-    src: url(./assets/fonts/Ubuntu-Bold.ttf);
+    src: url(../assets/fonts/Ubuntu-Bold.ttf);
   }
   
   *,
@@ -145,7 +145,7 @@
   nav {
     width: 100%;
     height: 125px;
-    background: url(./assets/images/bg-sidebar-mobile.svg);
+    background: url(../assets/images/bg-sidebar-mobile.svg);
     background-repeat: no-repeat;
     background-position: top;
   }
@@ -556,7 +556,7 @@
     }
   
     nav {
-      background-image: url(./assets/images/bg-sidebar-desktop.svg);
+      background-image: url(../assets/images/bg-sidebar-desktop.svg);
       background-position: center;
       height: 100%;
       width: 250px;

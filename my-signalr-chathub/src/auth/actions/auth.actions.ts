@@ -13,3 +13,4 @@ export const loginFailure = createAction(
 
 export const loginStart = createAction('[Auth] Login Start');
 export const loginEnd = createAction('[Auth] Login End');
+export const resetLoginError = createAction('[Auth] Reset Login Error');

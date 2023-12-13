@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
+
 using my_signalr_chathub_backend.Auth;
 using my_signalr_chathub_backend.Hubs;
 using my_signalr_chathub_backend.Models.Config;
+using my_signalr_chathub_backend.Models.SuperTienda;
 using my_signalr_chathub_backend.Services.Login;
 using my_signalr_chathub_backend.Services.Session;
 using my_signalr_chathub_backend.Services.SessionManager;
@@ -24,6 +27,12 @@ namespace my_signalr_chathub_backend
                         .AllowAnyMethod()
                         .AllowCredentials()); // Allow credentials is important for SignalR
             });
+
+            builder.Services.AddDbContext<SuperTiendaContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SuperTienda")));
+
+            builder.Services.AddAutoMapper(typeof(Program));
+
 
             builder.Services.AddHttpContextAccessor();
 
