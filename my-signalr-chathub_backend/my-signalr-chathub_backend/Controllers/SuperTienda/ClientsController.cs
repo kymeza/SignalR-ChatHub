@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,56 +11,68 @@ using my_signalr_chathub_backend.Models.SuperTienda;
 
 namespace my_signalr_chathub_backend.Controllers.SuperTienda
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/supertienda/[controller]")]
     [ApiController]
     public class ClientsController : ControllerBase
     {
         private readonly SuperTiendaContext _context;
+        private readonly IMapper _mapper;
 
-        public ClientsController(SuperTiendaContext context)
+
+        public ClientsController(SuperTiendaContext context, IMapper mapper )
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        // TO-DO --> Abstract the logic to a service
 
         // GET: api/Clients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+        public async Task<ActionResult<IEnumerable<ClientDto>>> GetClients()
         {
           if (_context.Clients == null)
           {
               return NotFound();
           }
-            return await _context.Clients.ToListAsync();
+          var clients = await _context.Clients.ToListAsync();
+          var cllentsDto = _mapper.Map<List<ClientDto>>(clients);
+
+          return Ok(cllentsDto);
         }
 
         // GET: api/Clients/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(string id)
+        public async Task<ActionResult<ClientDto>> GetClient(string id)
         {
           if (_context.Clients == null)
           {
               return NotFound();
           }
-            var client = await _context.Clients.FindAsync(id);
+          var client = await _context.Clients.FindAsync(id);
+          
+          if (client == null)
+          {
+              return NotFound();
+          }
 
-            if (client == null)
-            {
-                return NotFound();
-            }
+          var clientDto = _mapper.Map<ClientDto>(client);
 
-            return client;
+          return clientDto;
         }
 
         // PUT: api/Clients/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(string id, Client client)
+        public async Task<IActionResult> PutClient(string id, ClientDto clientDto)
         {
-            if (id != client.IdCliente)
+            if (id != clientDto.IdCliente)
             {
                 return BadRequest();
             }
+
+            var client = _mapper.Map<Client>(clientDto);
 
             _context.Entry(client).State = EntityState.Modified;
 
@@ -85,30 +98,31 @@ namespace my_signalr_chathub_backend.Controllers.SuperTienda
         // POST: api/Clients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Client>> PostClient(ClientDto clientDto)
         {
           if (_context.Clients == null)
           {
               return Problem("Entity set 'SuperTiendaContext.Clients'  is null.");
           }
-            _context.Clients.Add(client);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ClientExists(client.IdCliente))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+          var client = _mapper.Map<Client>(clientDto);
+          _context.Clients.Add(client);
+          try
+          {
+              await _context.SaveChangesAsync();
+          }
+          catch (DbUpdateException)
+          {
+              if (ClientExists(client.IdCliente))
+              {
+                  return Conflict();
+              }
+              else
+              {
+                  throw;
+              }
+          }
 
-            return CreatedAtAction("GetClient", new { id = client.IdCliente }, client);
+          return CreatedAtAction("GetClient", new { id = client.IdCliente }, client);
         }
 
         // DELETE: api/Clients/5

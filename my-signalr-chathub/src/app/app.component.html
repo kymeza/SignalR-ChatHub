@@ -1,15 +1,14 @@
 <router-outlet></router-outlet>
 
-<app-chat></app-chat>
+<app-chat *ngIf="showChat"></app-chat>
 
 <!-- app.component.html -->
-<app-login *ngIf="!(isLoggedIn$ | async)">
+<app-login *ngIf="showLogin && !(isLoggedIn$ | async)"></app-login>
 
 
 
-</app-login>
 
-<div class="container">
+<div class="container" *ngIf="showForm">
     <div class="container-nav">
       <nav>
         <div class="nav-numbers-ul">
@@ -59,6 +58,19 @@
         (changeEvent)="change()"
       ></app-form>
     </div>
+
   </div>
   
+  <div class="form-container" *ngIf="showOrderForm">
+    <app-order-form 
+      [clients]="clients"
+      [products]="products">
+    </app-order-form>
+  </div>
 
+<!-- Add toggle buttons for demonstration -->
+<button (click)="toggleChat()">Toggle Chat</button>
+<button (click)="toggleLogin()">Toggle Login</button>
+<button (click)="toggleForm()">Toggle Form</button>
+
+<button (click)="toggleOrderForm()">Toggle Order Form</button>

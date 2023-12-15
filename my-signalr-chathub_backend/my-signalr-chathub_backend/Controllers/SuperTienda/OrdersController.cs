@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,32 +11,39 @@ using my_signalr_chathub_backend.Models.SuperTienda;
 
 namespace my_signalr_chathub_backend.Controllers.SuperTienda
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/supertienda/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
         private readonly SuperTiendaContext _context;
+        private readonly IMapper _mapper;
 
-        public OrdersController(SuperTiendaContext context)
+        public OrdersController(SuperTiendaContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        // TO-DO --> Abstract the logic to a service
+
 
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
           if (_context.Orders == null)
           {
               return NotFound();
           }
-          return await _context.Orders.ToListAsync();
+          var orders = await _context.Orders.ToListAsync();
+          var ordersDto = _mapper.Map<List<OrderDto>>(orders);
+          return Ok(ordersDto);
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(string id)
+        public async Task<ActionResult<OrderDto>> GetOrder(string id)
         {
           if (_context.Orders == null)
           {
@@ -43,24 +51,26 @@ namespace my_signalr_chathub_backend.Controllers.SuperTienda
           }
           var order = await _context.Orders.FindAsync(id);
 
-            if (order == null)
-            {
-                return NotFound();
-            }
+          if (order == null)
+          {
+              return NotFound();
+          }
 
-            return order;
+          var orderDto = _mapper.Map<OrderDto>(order);
+
+          return orderDto;
         }
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(string id, Order order)
+        public async Task<IActionResult> PutOrder(string id, OrderDto orderDto)
         {
-            if (id != order.IdPedido)
+            if (id != orderDto.IdPedido)
             {
                 return BadRequest();
             }
-
+            var order = _mapper.Map<Order>(orderDto);
             _context.Entry(order).State = EntityState.Modified;
 
             try

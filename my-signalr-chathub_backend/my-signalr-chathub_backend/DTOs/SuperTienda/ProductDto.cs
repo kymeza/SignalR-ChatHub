@@ -1,6 +1,6 @@
 public class ProductDto
 {
-    public string IdArtículo { get; set; }
+    public string IdArticulo { get; set; }
     public string IdSubCategoria { get; set; }
     public string? Producto { get; set; }
     public double? PrecioUnitario { get; set; }

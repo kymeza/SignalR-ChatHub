@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,57 +11,66 @@ using my_signalr_chathub_backend.Models.SuperTienda;
 
 namespace my_signalr_chathub_backend.Controllers.SuperTienda
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/supertienda/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
         private readonly SuperTiendaContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductsController(SuperTiendaContext context)
+        public ProductsController(SuperTiendaContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        // TO-DO --> Abstract the logic to a service
+
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
           if (_context.Products == null)
           {
               return NotFound();
           }
-          return await _context.Products.ToListAsync();
+          var products = await _context.Products.ToListAsync();
+          var productsDto = _mapper.Map<List<ProductDto>>(products);
+          return Ok(productsDto);
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        public async Task<ActionResult<ProductDto>> GetProduct(string id)
         {
           if (_context.Products == null)
           {
               return NotFound();
           }
-            var product = await _context.Products.FindAsync(id);
+          var product = await _context.Products.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
+          if (product == null)
+          {
+              return NotFound();
+          }
 
-            return product;
+          var productDto = _mapper.Map<ProductDto>(product);
+
+          return productDto;
         }
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(string id, Product product)
+        public async Task<IActionResult> PutProduct(string id, ProductDto productDto)
         {
-            if (id != product.IdArtículo)
+            if (id != productDto.IdArticulo)
             {
                 return BadRequest();
             }
-
+            var product = _mapper.Map<Product>(productDto);
             _context.Entry(product).State = EntityState.Modified;
 
             try
@@ -98,7 +108,7 @@ namespace my_signalr_chathub_backend.Controllers.SuperTienda
             }
             catch (DbUpdateException)
             {
-                if (ProductExists(product.IdArtículo))
+                if (ProductExists(product.IdArticulo))
                 {
                     return Conflict();
                 }
@@ -108,7 +118,7 @@ namespace my_signalr_chathub_backend.Controllers.SuperTienda
                 }
             }
 
-            return CreatedAtAction("GetProduct", new { id = product.IdArtículo }, product);
+            return CreatedAtAction("GetProduct", new { id = product.IdArticulo }, product);
         }
 
         // DELETE: api/Products/5
@@ -133,7 +143,7 @@ namespace my_signalr_chathub_backend.Controllers.SuperTienda
 
         private bool ProductExists(string id)
         {
-            return (_context.Products?.Any(e => e.IdArtículo == id)).GetValueOrDefault();
+            return (_context.Products?.Any(e => e.IdArticulo == id)).GetValueOrDefault();
         }
     }
 }

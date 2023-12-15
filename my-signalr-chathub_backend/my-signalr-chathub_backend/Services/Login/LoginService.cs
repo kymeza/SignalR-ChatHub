@@ -107,6 +107,7 @@ namespace my_signalr_chathub_backend.Services.Login
             {
                 HttpOnly = true,
                 Secure = true,
+                SameSite = SameSiteMode.None,
                 // Set the cookie to expire at the same time as the JWT token
                 // take into account the time zone of the server
                 Expires = _sessionManager.GetSessionExpiry(sessionId)

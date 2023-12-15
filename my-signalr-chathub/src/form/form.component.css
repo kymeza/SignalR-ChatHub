@@ -1,629 +1,628 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --marineBlue: hsl(213, 96%, 18%);
-    --purplishBlue: hsl(243, 100%, 62%);
-    --pastelBlue: hsl(228, 100%, 84%);
-    --lightBlue: hsl(206, 94%, 87%);
-    --strawberryRed: hsl(354, 84%, 57%);
-    --coolGray: hsl(231, 11%, 63%);
-    --lightGray: hsl(229, 24%, 87%);
-    --magnolia: hsl(217, 100%, 97%);
-    --alabaster: hsl(231, 100%, 99%);
-  }
-  
-  @font-face {
-    font-family: Ubuntu;
-    src: url(../assets/fonts/Ubuntu-Regular.ttf);
-  }
-  
-  @font-face {
-    font-family: Ubuntu-Medium;
-    src: url(../assets/fonts/Ubuntu-Medium.ttf);
-  }
-  
-  @font-face {
-    font-family: Ubuntu-Bold;
-    src: url(../assets/fonts/Ubuntu-Bold.ttf);
-  }
-  
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  
-  * {
-    margin: 0;
-  }
-  
-  html,
+  --marineBlue: hsl(213, 96%, 18%);
+  --purplishBlue: hsl(243, 100%, 62%);
+  --pastelBlue: hsl(228, 100%, 84%);
+  --lightBlue: hsl(206, 94%, 87%);
+  --strawberryRed: hsl(354, 84%, 57%);
+  --coolGray: hsl(231, 11%, 63%);
+  --lightGray: hsl(229, 24%, 87%);
+  --magnolia: hsl(217, 100%, 97%);
+  --alabaster: hsl(231, 100%, 99%);
+}
+
+@font-face {
+  font-family: Ubuntu;
+  src: url(../assets/fonts/Ubuntu-Regular.ttf);
+}
+
+@font-face {
+  font-family: Ubuntu-Medium;
+  src: url(../assets/fonts/Ubuntu-Medium.ttf);
+}
+
+@font-face {
+  font-family: Ubuntu-Bold;
+  src: url(../assets/fonts/Ubuntu-Bold.ttf);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: Ubuntu;
+  background: var(--lightBlue);
+}
+
+img,
+svg {
+  /*display: block;*/
+  max-width: 100%;
+}
+
+input,
+button,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: 32px;
+  font-family: Ubuntu-Bold;
+}
+
+h1,
+label {
+  color: var(--marineBlue);
+}
+
+label {
+  font-family: Ubuntu-Medium;
+}
+
+h2 {
+  color: var(--coolGray);
+  font-size: 20px;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 20px;
+  color: var(--coolGray);
+}
+
+tr:first-of-type {
+  border-bottom: 1px solid var(--coolGray);
+}
+
+td {
+  padding: 20px;
+}
+
+.invisible {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.titlecase {
+  text-transform: capitalize;
+}
+
+.purplish {
+  color: var(--purplishBlue);
+  font-family: Ubuntu-Bold;
+}
+
+.pastel {
+  color: var(--pastelBlue);
+}
+
+.marine {
+  color: var(--marineBlue);
+  font-family: Ubuntu-Bold;
+}
+
+.marine-medium {
+  color: var(--marineBlue);
+  font-family: Ubuntu-Medium;
+}
+
+nav {
+  width: 100%;
+  height: 125px;
+  background: url(../assets/images/bg-sidebar-mobile.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.nav-numbers-ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px 40px;
+}
+
+.step-number {
+  border: 2px solid white;
+  color: white;
+  background: transparent;
+  border-radius: 40px;
+  padding: 8px 16px;
+}
+
+.step-number-circle {
+  font-family: Ubuntu-Bold;
+}
+
+.fill {
+  color: black;
+  background: var(--pastelBlue);
+}
+
+label {
+  display: block;
+}
+
+.form-container {
+  background: white;
+  width: 88.5%;
+  height: 75vh;
+  border-radius: 12px;
+  padding: 10px;
+  margin: -10% auto;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+/* step 1 */
+
+.step-1 {
+  padding: 8px;
+}
+
+.step-1-inputs {
+  margin-block-start: 20px;
+}
+
+.step-button-container {
+  background: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+input[type="tel"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus {
+  outline: 2px solid var(--purplishBlue);
+}
+
+input[type="tel"],
+input[type="text"],
+input[type="email"] {
+  color: var(--coolGray);
+  margin-block: 20px;
+  width: 100%;
+  border-radius: 4px;
+  border: 2px solid var(--coolGray);
+  font-family: Ubuntu-Bold;
+  line-height: 2;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--coolGray);
+  font-family: Ubuntu-Bold;
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--coolGray);
+  font-family: Ubuntu-Bold;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--coolGray);
+  font-family: Ubuntu-Bold;
+}
+
+.prev-button:hover {
+  color: var(--marineBlue);
+  font-family: Ubuntu-Bold;
+}
+
+/* end step 1 */
+
+.step-2-toggle {
+  background: var(--magnolia);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--marineBlue);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input:visited:invalid,
+input:not(:focus):not(:placeholder-shown):invalid {
+  outline: 2px solid var(--strawberryRed);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* prev, next, confirm buttons */
+.prev-button {
+  background: transparent;
+  border: none;
+  color: var(--coolGray);
+}
+
+.next-button {
+  background: var(--marineBlue);
+  color: var(--magnolia);
+  border-radius: 4px;
+  border: none;
+  padding: 5px 10px;
+  font-family: Ubuntu-Medium;
+}
+
+.confirm-button {
+  background: var(--purplishBlue);
+  color: var(--magnolia);
+  border-radius: 4px;
+  border: none;
+  padding: 5px 10px;
+  font-family: Ubuntu-Bold;
+}
+
+.step-2 label {
+  font-family: Ubuntu-Bold;
+}
+
+/* Radio Buttons */
+
+.step-2-input-container {
+  display: flex;
+  position: relative;
+  height: 80px;
+  align-items: flex-start;
+  margin-block-end: 12px;
+}
+
+.step-2-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-2 h2 {
+  font-size: 16px;
+  margin-block: 8px;
+}
+
+.radio-tile {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  /*align-items: center;*/
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: 2px solid var(--coolGray);
+  border-radius: 12px;
+}
+
+.radio-button {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.radio-button:checked + .radio-tile {
+  background-color: var(--magnolia);
+  border: 2px solid var(--purplishBlue);
+}
+
+.yearly-savings {
+  color: var(--marineBlue);
+  font-family: Ubuntu-Medium;
+}
+
+/* End Radio Buttons */
+
+/* Step-3 Checkboxes */
+
+.step-3-inputs {
+  margin-block: 20px;
+}
+
+input[type="checkbox"] {
+  width: 24px;
+  height: 48px;
+  accent-color: var(--purplishBlue);
+}
+
+.step-3-input-container:has(input[type="checkbox"]:checked) {
+  border: 2px solid var(--purplishBlue);
+  background: var(--magnolia);
+}
+
+.step-3-input-container {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border: 2px solid var(--coolGray);
+  border-radius: 12px;
+  margin-block-end: 20px;
+}
+
+.step-3-root-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 33px;
+  /* added a larger gap versus changing to grid to have prices line up better */
+}
+
+/* End Step-3 Checkboxes */
+
+/* Step-4 */
+
+.change {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--coolGray);
+}
+
+.change:hover {
+  color: var(--purplishBlue);
+}
+
+.magnolia {
+  background: var(--magnolia);
+}
+
+.table-padding {
+  text-align: left;
+  padding: 8px 22px;
+}
+
+.plan-cost {
+  color: var(--marineBlue);
+  font-family: "Ubuntu-Medium";
+}
+
+.addon-cost {
+  color: var(--marineBlue);
+}
+
+#step-4-plan {
+  text-transform: capitalize;
+}
+
+.thank-you-div {
+  text-align: center;
+  margin-block-start: 50px;
+}
+
+.thank-you-div h1 {
+  font-size: 24px;
+  color: var(--marineBlue);
+  font-family: "Ubuntu-Medium";
+}
+
+.thank-you-div p {
+  color: var(--coolGray);
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+
+small {
+  color: red;
+}
+
+@media (min-width: 768px) {
   body {
-    height: 100%;
-  }
-  
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    font-family: Ubuntu;
-    background: var(--lightBlue);
-  }
-  
-  img,
-  svg {
-    /*display: block;*/
-    max-width: 100%;
-  }
-  
-  input,
-  button,
-  select {
-    font: inherit;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    overflow-wrap: break-word;
-  }
-  
-  h1 {
-    font-size: 32px;
-    font-family: Ubuntu-Bold;
-  }
-  
-  h1,
-  label {
-    color: var(--marineBlue);
-  }
-  
-  label {
-    font-family: Ubuntu-Medium;
-  }
-  
-  h2 {
-    color: var(--coolGray);
-    font-size: 20px;
-  }
-  
-  ul {
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-block: 20px;
-    color: var(--coolGray);
-  }
-  
-  tr:first-of-type {
-    border-bottom: 1px solid var(--coolGray);
-  }
-  
-  td {
-    padding: 20px;
-  }
-  
-  .invisible {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  
-  .titlecase {
-    text-transform: capitalize;
-  }
-  
-  .purplish {
-    color: var(--purplishBlue);
-    font-family: Ubuntu-Bold;
-  }
-  
-  .pastel {
-    color: var(--pastelBlue);
-  }
-  
-  .marine {
-    color: var(--marineBlue);
-    font-family: Ubuntu-Bold;
-  }
-  
-  .marine-medium {
-    color: var(--marineBlue);
-    font-family: Ubuntu-Medium;
-  }
-  
-  nav {
-    width: 100%;
-    height: 125px;
-    background: url(../assets/images/bg-sidebar-mobile.svg);
-    background-repeat: no-repeat;
-    background-position: top;
-  }
-  
-  .nav-numbers-ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 20px 40px;
-  }
-  
-  .step-number {
-    border: 2px solid white;
-    color: white;
-    background: transparent;
-    border-radius: 40px;
-    padding: 8px 16px;
-  }
-  
-  .step-number-circle {
-    font-family: Ubuntu-Bold;
-  }
-  
-  .fill {
-    color: black;
-    background: var(--pastelBlue);
-  }
-  
-  label {
-    display: block;
-  }
-  
-  .form-container {
-    background: white;
-    width: 88.5%;
-    height: 75vh;
-    border-radius: 12px;
-    padding: 10px;
-    margin: -10% auto;
-  }
-  
-  .label-container {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-  }
-  
-  /* step 1 */
-  
-  .step-1 {
-    padding: 8px;
-  }
-  
-  .step-1-inputs {
-    margin-block-start: 20px;
-  }
-  
-  .step-button-container {
-    background: white;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-  }
-  
-  input[type="checkbox"] {
-    cursor: pointer;
-  }
-  
-  input[type="tel"]:focus,
-  input[type="text"]:focus,
-  input[type="email"]:focus {
-    outline: 2px solid var(--purplishBlue);
-  }
-  
-  input[type="tel"],
-  input[type="text"],
-  input[type="email"] {
-    color: var(--coolGray);
-    margin-block: 20px;
-    width: 100%;
-    border-radius: 4px;
-    border: 2px solid var(--coolGray);
-    font-family: Ubuntu-Bold;
-    line-height: 2;
-  }
-  
-  ::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--coolGray);
-    font-family: Ubuntu-Bold;
-    opacity: 1;
-    /* Firefox */
-  }
-  
-  :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: var(--coolGray);
-    font-family: Ubuntu-Bold;
-  }
-  
-  ::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: var(--coolGray);
-    font-family: Ubuntu-Bold;
-  }
-  
-  .prev-button:hover {
-    color: var(--marineBlue);
-    font-family: Ubuntu-Bold;
-  }
-  
-  /* end step 1 */
-  
-  .step-2-toggle {
     background: var(--magnolia);
+  }
+
+  .container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+  }
+
+  .step-button-container {
+    position: inherit;
+  }
+
+  .form-container {
+    height: inherit;
+    /*padding: 0 0 0 100px;*/
+    margin: 0;
+    border-radius: 0;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .nav-numbers-ul {
+    flex-direction: column;
+    padding: 0 15px;
+    margin-top: 10px;
+  }
+
+  nav {
+    background-image: url(../assets/images/bg-sidebar-desktop.svg);
+    background-position: center;
+    height: 100%;
+    width: 250px;
+    display: flex;
+    align-items: flex-start;
     border-radius: 12px;
   }
-  
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+
+  .container-nav {
+    background: #fff;
+    padding: 10px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
   }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+
+  .step-number {
+    margin-block: 18px;
   }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--marineBlue);
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  input:visited:invalid,
-  input:not(:focus):not(:placeholder-shown):invalid {
-    outline: 2px solid var(--strawberryRed);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-  
-  /* prev, next, confirm buttons */
-  .prev-button {
-    background: transparent;
-    border: none;
-    color: var(--coolGray);
-  }
-  
-  .next-button {
-    background: var(--marineBlue);
-    color: var(--magnolia);
-    border-radius: 4px;
-    border: none;
-    padding: 5px 10px;
-    font-family: Ubuntu-Medium;
-  }
-  
-  .confirm-button {
-    background: var(--purplishBlue);
-    color: var(--magnolia);
-    border-radius: 4px;
-    border: none;
-    padding: 5px 10px;
-    font-family: Ubuntu-Bold;
-  }
-  
-  .step-2 label {
-    font-family: Ubuntu-Bold;
-  }
-  
-  /* Radio Buttons */
-  
-  .step-2-input-container {
-    display: flex;
-    position: relative;
-    height: 80px;
-    align-items: flex-start;
-    margin-block-end: 12px;
-  }
-  
-  .step-2-inputs {
+
+  .nav-numbers-second-ul {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    text-transform: uppercase;
+    color: #fff;
   }
-  
-  .step-2 h2 {
-    font-size: 16px;
-    margin-block: 8px;
+
+  .nav-numbers-second-ul-div {
+    margin-block: 30px;
   }
-  
-  .radio-tile {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    /*align-items: center;*/
-    gap: 20px;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    border: 2px solid var(--coolGray);
-    border-radius: 12px;
+
+  form {
+    width: 85%;
   }
-  
-  .radio-button {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    cursor: pointer;
-  }
-  
-  .radio-button:checked + .radio-tile {
-    background-color: var(--magnolia);
-    border: 2px solid var(--purplishBlue);
-  }
-  
-  .yearly-savings {
-    color: var(--marineBlue);
-    font-family: Ubuntu-Medium;
-  }
-  
-  /* End Radio Buttons */
-  
-  /* Step-3 Checkboxes */
-  
-  .step-3-inputs {
-    margin-block: 20px;
-  }
-  
-  input[type="checkbox"] {
-    width: 24px;
-    height: 48px;
-    accent-color: var(--purplishBlue);
-  }
-  
-  .step-3-input-container:has(input[type="checkbox"]:checked) {
-    border: 2px solid var(--purplishBlue);
-    background: var(--magnolia);
-  }
-  
-  .step-3-input-container {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    border: 2px solid var(--coolGray);
-    border-radius: 12px;
-    margin-block-end: 20px;
-  }
-  
-  .step-3-root-tile {
-    display: flex;
-    align-items: flex-start;
-    gap: 33px;
-    /* added a larger gap versus changing to grid to have prices line up better */
-  }
-  
-  /* End Step-3 Checkboxes */
-  
-  /* Step-4 */
-  
-  .change {
-    text-decoration: underline;
-    cursor: pointer;
-    color: var(--coolGray);
-  }
-  
-  .change:hover {
-    color: var(--purplishBlue);
-  }
-  
-  .magnolia {
-    background: var(--magnolia);
-  }
-  
-  .table-padding {
-    text-align: left;
-    padding: 8px 22px;
-  }
-  
-  .plan-cost {
-    color: var(--marineBlue);
-    font-family: "Ubuntu-Medium";
-  }
-  
-  .addon-cost {
-    color: var(--marineBlue);
-  }
-  
-  #step-4-plan {
-    text-transform: capitalize;
-  }
-  
+
+  /*
   .thank-you-div {
-    text-align: center;
-    margin-block-start: 50px;
+    width: 85%;
   }
-  
-  .thank-you-div h1 {
-    font-size: 24px;
-    color: var(--marineBlue);
-    font-family: "Ubuntu-Medium";
+  */
+
+  .step-3-root-tile {
+    gap: 33px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    align-items: flex-start;
   }
-  
-  .thank-you-div p {
-    color: var(--coolGray);
+
+  .step-2-inputs {
+    flex-direction: row;
+    /*margin-block-end: 120px;*/
   }
-  
-  .show {
-    visibility: visible;
+
+  .step-2-input-container {
+    margin-inline: 15px;
+    height: initial;
   }
-  
-  .hide {
-    visibility: hidden;
+
+  .step-2-toggle {
+    margin-block: 25px;
   }
-  
-  button:disabled {
-    opacity: 0.5;
-    cursor: initial;
+
+  .radio-tile {
+    display: flex;
+    flex-direction: column;
+    width: 128px;
+    height: 200px;
   }
-  
-  small {
-    color: red;
-  }
-  
-  @media (min-width: 768px) {
-    body {
-      background: var(--magnolia);
-    }
-  
-    .container {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60vw;
-    }
-  
-    .step-button-container {
-      position: inherit;
-    }
-  
-    .form-container {
-      height: inherit;
-      /*padding: 0 0 0 100px;*/
-      margin: 0;
-      border-radius: 0;
-      border-top-right-radius: 12px;
-      border-bottom-right-radius: 12px;
-    }
-  
-    .nav-numbers-ul {
-      flex-direction: column;
-      padding: 0 15px;
-      margin-top: 10px;
-    }
-  
-    nav {
-      background-image: url(../assets/images/bg-sidebar-desktop.svg);
-      background-position: center;
-      height: 100%;
-      width: 250px;
-      display: flex;
-      align-items: flex-start;
-      border-radius: 12px;
-    }
-  
-    .container-nav {
-      background: #fff;
-      padding: 10px;
-      border-top-left-radius: 12px;
-      border-bottom-left-radius: 12px;
-    }
-  
-    .step-number {
-      margin-block: 18px;
-    }
-  
-    .nav-numbers-second-ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      text-transform: uppercase;
-      color: #fff;
-    }
-  
-    .nav-numbers-second-ul-div {
-      margin-block: 30px;
-    }
-  
-    form {
-      width: 85%;
-    }
-  
-    /*
-    .thank-you-div {
-      width: 85%;
-    }
-    */
-  
-    .step-3-root-tile {
-      gap: 33px;
-      display: grid;
-      grid-template-columns: 4fr 1fr;
-      align-items: flex-start;
-    }
-  
-    .step-2-inputs {
-      flex-direction: row;
-      /*margin-block-end: 120px;*/
-    }
-  
-    .step-2-input-container {
-      margin-inline: 15px;
-      height: initial;
-    }
-  
-    .step-2-toggle {
-      margin-block: 25px;
-    }
-  
-    .radio-tile {
-      display: flex;
-      flex-direction: column;
-      width: 128px;
-      height: 200px;
-    }
-  }
-  
+}

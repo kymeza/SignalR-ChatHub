@@ -1,4 +1,4 @@
-interface orderDetailDto {
+export interface orderDetailDto {
     lineaDetalle: number;
     idPedido: string;
     articuloId: string;

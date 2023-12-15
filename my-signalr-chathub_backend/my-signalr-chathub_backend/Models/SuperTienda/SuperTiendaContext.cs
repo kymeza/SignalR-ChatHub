@@ -198,12 +198,12 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasKey(e => e.IdArtículo)
+                entity.HasKey(e => e.IdArticulo)
                     .HasName("PK_Articulos");
 
-                entity.Property(e => e.IdArtículo)
+                entity.Property(e => e.IdArticulo)
                     .HasMaxLength(64)
-                    .HasColumnName("ID Artículo");
+                    .HasColumnName("ID Articulo");
 
                 entity.Property(e => e.IdSubCategoria)
                     .HasMaxLength(64)

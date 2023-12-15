@@ -1,330 +1,65 @@
-<!--
-    <div>{{yearlyToggle.toString()}}</div>
-    <div *ngIf="yearlyToggle" style="color:green">Hey I'm true</div>
-    <div *ngIf="!yearlyToggle" style="color:red">Hey I'm false</div>
--->
-<form id="form" (ngSubmit)="(submit)" [formGroup]="multiStep">
-  <div class="step step-1" *ngIf="step == 1" formGroupName="user">
-    <div class="step-1-headings">
-      <h1>Personal info</h1>
-      <h2>Please provide your name, email address, and phone number.</h2>
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <!-- Order Section -->
+  <div formGroupName="order">
+    <h3>Order Information</h3>
+    <div>
+      <label for="idPedido">Order ID:</label>
+      <input type="text" id="idPedido" formControlName="idPedido">
     </div>
-    <div class="step-1-inputs">
-      <div class="label-container">
-        <label for="name">Name</label>
-        <small
-          *ngIf="
-            this.multiStep.controls.user.get('name').touched &&
-            multiStep.controls.user.get('name').errors?.required
-          "
-          >Name is required</small
-        >
-      </div>
-      <input
-        id="name"
-        type="text"
-        formControlName="name"
-        placeholder="e.g. Stephen King"
-      />
-      <div class="label-container">
-        <label for="email">Email Address</label>
-        <small
-          *ngIf="
-            this.multiStep.controls.user.get('email').touched &&
-            multiStep.controls.user.get('email').errors?.required
-          "
-          >Email is required</small
-        >
-      </div>
-      <input
-        id="email"
-        type="email"
-        formControlName="email"
-        placeholder="e.g. stephenking@lorem.com"
-      />
-      <div class="label-container">
-        <label for="phone">Phone Number</label>
-        <small
-          *ngIf="
-            this.multiStep.controls.user.get('phone').touched &&
-            multiStep.controls.user.get('phone').errors?.required
-          "
-          >Phone number is required</small
-        >
-        <small
-          *ngIf="
-            this.multiStep.controls.user.get('phone').touched &&
-            multiStep.controls.user.get('phone').errors?.pattern
-          "
-          >Match the placeholder format</small
-        >
-      </div>
-      <input
-        id="phone"
-        type="text"
-        formControlName="phone"
-        placeholder="e.g. +1 234 567 890"
-      />
+    <div>
+      <label for="clienteId">Client ID:</label>
+      <select id="clienteId" formControlName="clienteId">
+        <option *ngFor="let client of clients" [value]="client.idCliente">{{ client.cliente }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="fechaPedido">Order Date:</label>
+      <input type="date" id="fechaPedido" formControlName="fechaPedido">
+    </div>
+    <div>
+      <label for="fechaEnvio">Shipping Date:</label>
+      <input type="date" id="fechaEnvio" formControlName="fechaEnvío">
+    </div>
+    <div>
+      <label for="idPrioridad">Priority ID:</label>
+      <input type="text" id="idPrioridad" formControlName="idPrioridad">
+    </div>
+    <div>
+      <label for="idCiudad">City ID:</label>
+      <input type="text" id="idCiudad" formControlName="idCiudad">
     </div>
   </div>
-  <div class="step step-2" *ngIf="step == 2" formGroupName="plans">
-    <div class="step-2-headings">
-      <h1>Select your plan</h1>
-      <h2>You have the option of monthly or yearly billing.</h2>
+
+  <!-- Order Details Section -->
+  <div formArrayName="orderDetails">
+    <h3>Order Details</h3>
+    <div *ngFor="let detail of orderDetailsFormArray.controls; let i = index" [formGroupName]="i">
+      <div>
+        <label>Line Detail: {{ detail.get('lineaDetalle')!.value }}</label>
+      </div>
+      <div>
+        <label for="articuloId-{{i}}">Article ID:</label>
+        <select id="articuloId-{{i}}" formControlName="articuloId">
+          <option *ngFor="let product of products" [value]="product.idArticulo">{{ product.producto }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="cantidad-{{i}}">Quantity:</label>
+        <input type="number" id="cantidad-{{i}}" formControlName="cantidad">
+      </div>
+      <div>
+        <label for="descuento-{{i}}">Discount:</label>
+        <input type="number" id="descuento-{{i}}" formControlName="descuento">
+      </div>
+      <div>
+        <label for="costeEnvio-{{i}}">Shipping Cost:</label>
+        <input type="number" id="costeEnvio-{{i}}" formControlName="costeEnvío">
+      </div>
+      <button type="button" (click)="removeOrderDetail(i)">Remove Detail</button>
     </div>
-    <div class="step-2-inputs">
-      <div class="step-2-input-container">
-        <input
-          id="arcade"
-          class="radio-button"
-          type="radio"
-          formControlName="plan"
-          value="arcade"
-        />
-        <div class="radio-tile">
-          <div>
-            <img src="assets/images/icon-arcade.svg" alt="" />
-          </div>
-          <div>
-            <label for="arcade">Arcade</label>
-            <div>
-              <div *ngIf="!yearlyToggle" class="monthly">$9/mo</div>
-              <div *ngIf="yearlyToggle" class="yearly">$90/yr</div>
-              <div *ngIf="yearlyToggle" class="yearly-savings">
-                2 months free
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="step-2-input-container">
-        <input
-          id="advanced"
-          class="radio-button"
-          type="radio"
-          formControlName="plan"
-          value="advanced"
-        />
-        <div class="radio-tile">
-          <div>
-            <img src="assets/images/icon-advanced.svg" alt="" />
-          </div>
-          <div>
-            <label for="advanced">Advanced</label>
-            <div>
-              <div *ngIf="!yearlyToggle" class="monthly">$12/mo</div>
-              <div *ngIf="yearlyToggle" class="yearly">$120/yr</div>
-              <div *ngIf="yearlyToggle" class="yearly-savings">
-                2 months free
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="step-2-input-container">
-        <input
-          id="pro"
-          class="radio-button"
-          type="radio"
-          formControlName="plan"
-          value="pro"
-        />
-        <div class="radio-tile">
-          <div>
-            <img src="assets/images/icon-pro.svg" alt="" />
-          </div>
-          <div>
-            <label for="pro">Pro</label>
-            <div>
-              <div *ngIf="!yearlyToggle" class="monthly">$15/mo</div>
-              <div *ngIf="yearlyToggle" class="yearly">$150/yr</div>
-              <div *ngIf="yearlyToggle" class="yearly-savings">
-                2 months free
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="step-2-toggle">
-      <div
-        class="step-2-toggle-monthly-text"
-        [ngClass]="!yearlyToggle ? 'marine' : ''"
-      >
-        Monthly
-      </div>
-      <label class="switch">
-        <input
-          id="toggle"
-          type="checkbox"
-          name="duration"
-          (click)="termSwitch()"
-          [checked]="yearlyToggle"
-        />
-        <span class="slider round"></span>
-      </label>
-      <div
-        class="step-2-toggle-yearly-text"
-        [ngClass]="yearlyToggle ? 'marine' : ''"
-      >
-        Yearly
-      </div>
-    </div>
+    <button type="button" (click)="addOrderDetail()">Add Detail</button>
   </div>
-  <div class="step step-3" *ngIf="step == 3" formArrayName="addons">
-    <div class="step-3-headings">
-      <h1>Pick add-ons</h1>
-      <h2>Add-ons help enhance your gaming experience.</h2>
-    </div>
-    <div class="step-3-inputs">
-      <div class="step-3-input-container">
-        <input
-          id="online"
-          type="checkbox"
-          formControlName="online"
-          value="online service"
-        />
-        <div class="step-3-root-tile">
-          <div>
-            <label for="online">Online service</label>
-            <div>Access to multiplayer games</div>
-          </div>
-          <div>
-            <div *ngIf="!yearlyToggle" class="monthly">+$1/mo</div>
-            <div *ngIf="yearlyToggle" class="yearly">+$10/yr</div>
-          </div>
-        </div>
-      </div>
-      <div class="step-3-input-container">
-        <input
-          id="storage"
-          type="checkbox"
-          formControlName="storage"
-          value="larger storage"
-        />
-        <div class="step-3-root-tile">
-          <div>
-            <label for="storage">Larger Storage</label>
-            <div>Extra 1TB of cloud save</div>
-          </div>
-          <div>
-            <div *ngIf="!yearlyToggle" class="monthly">+$2/mo</div>
-            <div *ngIf="yearlyToggle" class="yearly">+$20/yr</div>
-          </div>
-        </div>
-      </div>
-      <div class="step-3-input-container">
-        <input
-          id="profile"
-          type="checkbox"
-          formControlName="profile"
-          value="customizable profile"
-        />
-        <div class="step-3-root-tile">
-          <div>
-            <label for="profile">Customizable Profile</label>
-            <div>Custom theme on your profile</div>
-          </div>
-          <div>
-            <div *ngIf="!yearlyToggle" class="monthly">+$2/mo</div>
-            <div *ngIf="yearlyToggle" class="yearly">+$20/yr</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="step step-4" *ngIf="step == 4">
-    <div class="step-4-headings">
-      <h1>Finishing up</h1>
-      <h2>Double-check everything looks OK before confirming.</h2>
-    </div>
-    <div class="step-4-dynamic">
-      <table id="step-4-table">
-        <tr class="magnolia">
-          <th class="marine table-padding">
-            <span id="step-4-plan"
-              >{{ this.multiStep.value.plans.plan }}&nbsp;</span
-            >
-            <span id="term" *ngIf="!yearlyToggle">(Monthly)</span>
-            <span id="term" *ngIf="yearlyToggle">(Yearly)</span>
-            <div id="change" class="change" (click)="changeClicked()">
-              Change
-            </div>
-          </th>
-          <th class="marine table-padding">
-            $ {{ this.costMap[this.multiStep.value.plans.plan]
-            }}<span *ngIf="yearlyToggle">0 /yr</span>
-            <span *ngIf="!yearlyToggle"> /mo</span>
-          </th>
-        </tr>
-        <tr
-          class="magnolia table-padding"
-          *ngIf="this.multiStep.value.addons.online === true"
-        >
-          <td>Online Service</td>
-          <td class="marine-medium">
-            <span *ngIf="!yearlyToggle">+$1 /mo</span>
-            <span *ngIf="yearlyToggle">+$10 /yr</span>
-          </td>
-        </tr>
-        <tr
-          class="magnolia table-padding"
-          *ngIf="this.multiStep.value.addons.storage === true"
-        >
-          <td>Larger Storage</td>
-          <td class="marine-medium">
-            <span *ngIf="!yearlyToggle">+$2 /mo</span>
-            <span *ngIf="yearlyToggle">+$20 /yr</span>
-          </td>
-        </tr>
-        <tr
-          class="magnolia table-padding"
-          *ngIf="this.multiStep.value.addons.profile === true"
-        >
-          <td>Customizable Profile</td>
-          <td class="marine-medium">
-            <span *ngIf="!yearlyToggle">+$2 /mo</span>
-            <span *ngIf="yearlyToggle">+$20 /yr</span>
-          </td>
-        </tr>
-        <tr>
-          <td>Total (per year)</td>
-          <td class="purplish">
-            $ {{ this.calculateTotal() }}
-            <span *ngIf="!yearlyToggle"> /mo</span>
-            <span *ngIf="yearlyToggle"> /yr</span>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="thank-you-div step-5" *ngIf="step == 5">
-    <img src="assets/images/icon-thank-you.svg" alt="" />
-    <h1>Thank you!</h1>
-    <p>
-      Thanks for confirming your subscription! We hope you have fun using our
-      platform. If you ever need support, please feel free to email us at
-      <span class="purplish">support&#64;loremgaming.com</span>.
-    </p>
-  </div>
-  <div class="step-button-container" *ngIf="step < 5">
-    <button
-      type="button"
-      class="prev-button"
-      [ngClass]="step > 1 ? 'show' : 'hide'"
-      (click)="decreaseStep()"
-    >
-      Go Back
-    </button>
-    <button
-      type="submit"
-      [ngClass]="step == 4 ? 'confirm-button' : 'next-button'"
-      [disabled]="
-        (this.multiStep.controls.user.invalid && step == 1) ||
-        (this.multiStep.controls.plans.invalid && step == 2)
-      "
-    >
-      {{ step == 4 ? "Confirm" : "Next Step" }}</button
-    >
-  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="!orderForm.valid">Submit Order</button>
 </form>

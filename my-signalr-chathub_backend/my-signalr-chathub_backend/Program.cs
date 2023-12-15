@@ -22,7 +22,7 @@ namespace my_signalr_chathub_backend
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200") // Specify the exact origin
+                    builder => builder.WithOrigins("https://localhost:4200") // Specify the exact origin
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()); // Allow credentials is important for SignalR

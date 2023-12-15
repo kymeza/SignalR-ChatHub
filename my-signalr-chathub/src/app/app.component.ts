@@ -10,7 +10,10 @@ import { AuthState } from 'src/auth/reducers/auth.reducer';
 import { LoginComponent } from 'src/auth/login/login.component';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormComponent } from 'src/form/form.component';
-
+import { OrderFormComponent } from 'src/st-form/st-form.component';
+import { clientDto } from '../dtos/supertienda/clientDto';
+import { productDto } from '../dtos/supertienda/productDto';
+import { OrderService } from 'src/st-form/st-form.service';
 
 
 @Component({
@@ -25,13 +28,17 @@ import { FormComponent } from 'src/form/form.component';
     LoginComponent,
     HttpClientModule,
     FormComponent,
+    OrderFormComponent,
   ],
 })
 export class AppComponent {
   title = 'my-signalr-chathub';
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private store: Store<{ auth: AuthState }>) {
+  constructor(
+    private store: Store<{ auth: AuthState }>,
+    private orderService: OrderService,
+    ) {
     this.isLoggedIn$ = this.store.select(state => state.auth.isLoggedIn);
   }
 
@@ -95,4 +102,46 @@ export class AppComponent {
     }
     this.increaseStep();
   }
+
+  showChat: boolean = false;
+  showLogin: boolean = true;
+  showForm: boolean = false;
+  showOrderForm: boolean = false;
+
+  // Methods to toggle the components
+  toggleChat() {
+    this.showChat = !this.showChat;
+  }
+
+  toggleLogin() {
+    this.showLogin = !this.showLogin;
+  }
+
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+
+  toggleOrderForm() {
+    this.showOrderForm = !this.showOrderForm;
+
+    if (this.showOrderForm && !this.isOrderFormDataLoaded) {
+      this.loadDropdownData();
+      this.isOrderFormDataLoaded = true;
+    }
+  }
+
+  isOrderFormDataLoaded: boolean = false;
+  clients: clientDto[] = [];
+  products: productDto[] = [];
+  
+  loadDropdownData() {
+    this.orderService.getClients().subscribe(data => {
+      this.clients = data;
+    });
+
+    this.orderService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+  }
+
 }

@@ -70,7 +70,12 @@
               "browserTarget": "my-signalr-chathub:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "ssl": true,
+            "sslKey": "src/ssl_cert/localhost.key",
+            "sslCert": "src/ssl_cert/localhost.crt"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

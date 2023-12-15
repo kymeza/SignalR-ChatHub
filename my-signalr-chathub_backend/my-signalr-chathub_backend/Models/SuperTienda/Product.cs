@@ -10,7 +10,7 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
             OrderDetails = new HashSet<OrderDetail>();
         }
 
-        public string IdArtículo { get; set; } = null!;
+        public string IdArticulo { get; set; } = null!;
         public string IdSubCategoria { get; set; } = null!;
         public string? Producto { get; set; }
         public double? PrecioUnitario { get; set; }

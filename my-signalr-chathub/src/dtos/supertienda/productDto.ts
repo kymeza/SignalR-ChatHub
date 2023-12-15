@@ -1,5 +1,5 @@
-interface productDto {
-    idArtículo: string;
+export interface productDto {
+    idArticulo: string;
     idSubCategoria: string;
     producto?: string;  // The '?' denotes an optional property
     precioUnitario?: number;  // C# 'double' translates to 'number' in TypeScript

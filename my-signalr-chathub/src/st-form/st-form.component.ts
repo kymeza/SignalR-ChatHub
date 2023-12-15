@@ -1,70 +1,91 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { OrderService } from './st-form.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { clientDto } from '../dtos/supertienda/clientDto';
+import { productDto } from '../dtos/supertienda/productDto';
 
+import { ordersCompositeDto } from 'src/dtos/business/ordersCompositeDto';
 
 @Component({
-  selector: 'app-st-form',
+  selector: 'app-order-form',
   templateUrl: './st-form.component.html',
   styleUrls: ['./st-form.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
-export class FormComponent {
-  @Input() step!: any;
+export class OrderFormComponent implements OnInit{
+  orderForm: FormGroup;
+  orderDetailsFormArray: FormArray;
+  
+  @Input() clients: clientDto[] = [];
+  @Input() products: productDto[] = [];
 
-  @Input() yearlyToggle: any;
+  @Output() onDataLoadRequest = new EventEmitter<void>();
 
-  @Output() increase = new EventEmitter();
+  ngOnInit() {
+    this.onDataLoadRequest.emit();
+  }
+  
+  constructor(
+    private fb: FormBuilder,
+    private orderService: OrderService
+  ) {
+    // Create form group for order
+    this.orderForm = this.fb.group({
+      order: this.fb.group({
+        idPedido: '',
+        clienteId: '',
+        fechaPedido: Date.now(),  
+        fechaEnvío: Date.now(),
+        idPrioridad: '',
+        idCiudad: ''
+      }),
+      orderDetails: this.fb.array([])
+    });
 
-  @Output() decrease = new EventEmitter();
-
-  @Output() toggled = new EventEmitter();
-
-  @Output() changeEvent = new EventEmitter();
-
-  @Input() submit: any;
-
-  @Input() multiStep: any;
-
-  @Input() costMap: any;
-
-  increaseStep() {
-    this.increase.emit();
+    this.orderDetailsFormArray = this.orderForm.get('orderDetails') as FormArray;
   }
 
-  decreaseStep() {
-    this.decrease.emit();
+  
+
+  addOrderDetail() {
+    const orderDetailIndex = this.orderDetailsFormArray.length + 1; // This will start from 1 for the first item
+    const orderDetail = this.fb.group({
+      lineaDetalle: orderDetailIndex,
+      articuloId: '',
+      cantidad: '',
+      descuento: '',
+      costeEnvío: ''
+    });
+
+    this.orderDetailsFormArray.push(orderDetail);
   }
 
-  termSwitch() {
-    this.toggled.emit();
+  removeOrderDetail(index: number) {
+    this.orderDetailsFormArray.removeAt(index);
   }
 
-  changeClicked() {
-    this.changeEvent.emit();
-  }
+  onSubmit() {
+    if (this.orderForm.valid) {
+      const orderData: ordersCompositeDto = this.orderForm.value;
+      const orderId = orderData.order.idPedido;
 
-  calculateTotal() {
-    let total = 0;
-    let planKey = this.multiStep.value.plans?.plan;
-    if (planKey) {
-      total += this.costMap[planKey];
-    }
-    if (this.multiStep.value.addons?.online === true) {
-      total += this.costMap['online'];
-    }
-    if (this.multiStep.value.addons?.storage === true) {
-      total += this.costMap['storage'];
-    }
-    if (this.multiStep.value.addons?.profile === true) {
-      total += this.costMap['profile'];
-    }
+      // Set idPedido for each order detail
+      orderData.orderDetails.forEach(detail => {
+        detail.idPedido = orderId;
+      });
 
-    if (this.yearlyToggle) {
-      // multiply by 10
-      total *= 10;
+      this.orderService.createOrder(orderData).subscribe({
+        next: (result) => {
+          console.log('Order and details created', result);
+          // Handle successful creation
+        },
+        error: (error) => {
+          console.error('There was an error creating the order and details', error);
+          // Handle errors
+        }
+      });
     }
-    return total;
   }
 }

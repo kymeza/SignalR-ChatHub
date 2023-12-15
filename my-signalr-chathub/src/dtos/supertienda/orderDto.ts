@@ -1,4 +1,4 @@
-interface orderDto {
+export interface orderDto {
     idPedido: string;
     clienteId: string;
     fechaPedido?: Date;  // Optional Date type
