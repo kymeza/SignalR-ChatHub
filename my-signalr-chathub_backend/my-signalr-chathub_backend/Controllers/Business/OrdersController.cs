@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using my_signalr_chathub_backend.Models.Business.Orders;
+using my_signalr_chathub_backend.DTOs.Business.Orders;
 using my_signalr_chathub_backend.Models.SuperTienda;
 
 namespace my_signalr_chathub_backend.Controllers.Business
-{
+{ 
     //[Authorize]
     [Route("api/business/[controller]")]
     [ApiController]
