@@ -37,7 +37,7 @@ export class OrderFormComponent implements OnInit{
         idPedido: '',
         clienteId: '',
         fechaPedido: Date.now(),  
-        fechaEnvío: Date.now(),
+        fechaEnvio: Date.now(),
         idPrioridad: '',
         idCiudad: ''
       }),
@@ -56,7 +56,7 @@ export class OrderFormComponent implements OnInit{
       articuloId: '',
       cantidad: '',
       descuento: '',
-      costeEnvío: ''
+      costeEnvio: ''
     });
 
     this.orderDetailsFormArray.push(orderDetail);

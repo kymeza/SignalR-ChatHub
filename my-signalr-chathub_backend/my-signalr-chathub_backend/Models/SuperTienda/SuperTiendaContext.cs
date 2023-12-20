@@ -129,7 +129,7 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
                     .HasMaxLength(64)
                     .HasColumnName("Cliente ID");
 
-                entity.Property(e => e.FechaEnvío)
+                entity.Property(e => e.FechaEnvio)
                     .HasColumnType("datetime")
                     .HasColumnName("Fecha Envío");
 
@@ -181,7 +181,7 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
                     .HasMaxLength(64)
                     .HasColumnName("Articulo ID");
 
-                entity.Property(e => e.CosteEnvío).HasColumnName("Coste envío");
+                entity.Property(e => e.CosteEnvio).HasColumnName("Coste envío");
 
                 entity.HasOne(d => d.IdPedidoNavigation)
                     .WithMany(p => p.OrderDetails)

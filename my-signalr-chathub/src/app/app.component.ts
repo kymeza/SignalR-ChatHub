@@ -14,6 +14,7 @@ import { OrderFormComponent } from 'src/st-form/st-form.component';
 import { clientDto } from '../dtos/supertienda/clientDto';
 import { productDto } from '../dtos/supertienda/productDto';
 import { OrderService } from 'src/st-form/st-form.service';
+import { SupertiendaComponent } from 'src/st-table/st-table.component';
 
 
 @Component({
@@ -29,6 +30,7 @@ import { OrderService } from 'src/st-form/st-form.service';
     HttpClientModule,
     FormComponent,
     OrderFormComponent,
+    SupertiendaComponent,
   ],
 })
 export class AppComponent {
@@ -107,6 +109,8 @@ export class AppComponent {
   showLogin: boolean = true;
   showForm: boolean = false;
   showOrderForm: boolean = false;
+  showSuperTiendaTable: boolean = false;
+
 
   // Methods to toggle the components
   toggleChat() {
@@ -142,6 +146,10 @@ export class AppComponent {
     this.orderService.getProducts().subscribe(data => {
       this.products = data;
     });
+  }
+
+  toggleSuperTiendaTable() {
+    this.showSuperTiendaTable = !this.showSuperTiendaTable;
   }
 
 }

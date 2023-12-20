@@ -68,9 +68,12 @@
     </app-order-form>
   </div>
 
+<app-supertienda *ngIf="showSuperTiendaTable"></app-supertienda>
+
 <!-- Add toggle buttons for demonstration -->
 <button (click)="toggleChat()">Toggle Chat</button>
 <button (click)="toggleLogin()">Toggle Login</button>
 <button (click)="toggleForm()">Toggle Form</button>
 
 <button (click)="toggleOrderForm()">Toggle Order Form</button>
+<button (click)="toggleSuperTiendaTable()">Toggle SuperTienda Table</button>

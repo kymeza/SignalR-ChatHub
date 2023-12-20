@@ -4,6 +4,6 @@ export interface orderDetailDto {
     articuloId: string;
     cantidad?: number;   // Optional 'number' type for nullable double
     descuento?: number;  // Optional 'number' type for nullable double
-    costeEnvío?: number; // Optional 'number' type for nullable double
+    costeEnvio?: number; // Optional 'number' type for nullable double
   }
   

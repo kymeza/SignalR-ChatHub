@@ -10,7 +10,7 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
         public string ArticuloId { get; set; } = null!;
         public double? Cantidad { get; set; }
         public double? Descuento { get; set; }
-        public double? CosteEnvío { get; set; }
+        public double? CosteEnvio { get; set; }
 
         public virtual Order IdPedido1 { get; set; } = null!;
         public virtual Product IdPedidoNavigation { get; set; } = null!;

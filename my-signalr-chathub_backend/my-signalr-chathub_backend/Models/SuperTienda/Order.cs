@@ -13,7 +13,7 @@ namespace my_signalr_chathub_backend.Models.SuperTienda
         public string IdPedido { get; set; } = null!;
         public string ClienteId { get; set; } = null!;
         public DateTime? FechaPedido { get; set; }
-        public DateTime? FechaEnvío { get; set; }
+        public DateTime? FechaEnvio { get; set; }
         public string IdPrioridad { get; set; } = null!;
         public string IdCiudad { get; set; } = null!;
 

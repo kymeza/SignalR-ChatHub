@@ -3,6 +3,21 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "name": "Launch Firefox",
+      "url": "https://localhost:4200/",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "https://localhost:4200/",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "name": "Launch Edge",
       "request": "launch",
       "type": "msedge",
