@@ -15,6 +15,8 @@ import { clientDto } from '../dtos/supertienda/clientDto';
 import { productDto } from '../dtos/supertienda/productDto';
 import { OrderService } from 'src/st-form/st-form.service';
 import { SupertiendaComponent } from 'src/st-table/st-table.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CommandRunnerComponent } from 'src/unsecure/unsecure.component';
 
 
 @Component({
@@ -31,6 +33,7 @@ import { SupertiendaComponent } from 'src/st-table/st-table.component';
     FormComponent,
     OrderFormComponent,
     SupertiendaComponent,
+    CommandRunnerComponent,
   ],
 })
 export class AppComponent {
@@ -110,6 +113,7 @@ export class AppComponent {
   showForm: boolean = false;
   showOrderForm: boolean = false;
   showSuperTiendaTable: boolean = false;
+  showCommandRunner: boolean = false;
 
 
   // Methods to toggle the components
@@ -150,6 +154,10 @@ export class AppComponent {
 
   toggleSuperTiendaTable() {
     this.showSuperTiendaTable = !this.showSuperTiendaTable;
+  }
+
+  toggleCommandRunner() {
+    this.showCommandRunner = !this.showCommandRunner;
   }
 
 }

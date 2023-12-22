@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 using my_signalr_chathub_backend.Auth;
@@ -9,6 +10,7 @@ using my_signalr_chathub_backend.Services.Login;
 using my_signalr_chathub_backend.Services.Session;
 using my_signalr_chathub_backend.Services.SessionManager;
 using my_signalr_chathub_backend.Services.SessionStore;
+using System.Data;
 
 
 namespace my_signalr_chathub_backend
@@ -30,6 +32,14 @@ namespace my_signalr_chathub_backend
 
             builder.Services.AddDbContext<SuperTiendaContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SuperTienda")));
+
+            builder.Services.AddScoped<IDbConnection>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("SuperTienda");
+                return new SqlConnection(connectionString);
+            });
+
 
             builder.Services.AddAutoMapper(typeof(Program));
 

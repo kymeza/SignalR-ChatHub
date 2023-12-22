@@ -1,0 +1,76 @@
+<!-- Command Runner -->
+<form (ngSubmit)="runCommand(command)">
+  <div class="form-group">
+    <label for="commandInput">Enter PowerShell command:</label>
+    <input type="text" class="form-control" id="commandInput" [(ngModel)]="command" name="command" placeholder="Enter PowerShell command" required>
+  </div>
+  <button type="submit" class="btn btn-danger">Run Command</button>
+</form>
+
+
+<pre>{{ output }}</pre>
+
+<!-- SQL Injection Demonstration Forms -->
+<h2>SQL Injection Demonstration</h2>
+
+<!-- Get Products -->
+<form (ngSubmit)="getProducts()">
+  <button type="submit" class="btn btn-primary">Get All Products</button>
+</form>
+
+<!-- Get Product by ID -->
+<form (ngSubmit)="getProduct()">
+  <div class="form-group">
+    <label for="productIdInput">Enter Product ID:</label>
+    <input type="text" class="form-control" id="productIdInput" [(ngModel)]="productId" name="productId" placeholder="Enter Product ID">
+  </div>
+  <button type="submit" class="btn btn-primary">Get Product</button>
+</form>
+
+<!-- Display Products -->
+<div *ngIf="products && products.length">
+  <h3>Product Details:</h3>
+  <div *ngFor="let product of products">
+    <p>Article ID: {{ product.idArticulo }}</p>
+    <p>Subcategory ID: {{ product.idSubCategoria }}</p>
+    <p>Name: {{ product.producto }}</p>
+    <p>Unit Price: {{ product.precioUnitario | number }}</p> <!-- Using the 'number' pipe for formatting -->
+    <p>Unit Cost: {{ product.costoUnitario | number }}</p> <!-- Using the 'number' pipe for formatting -->
+  </div>
+</div>
+
+<!-- File Upload Form -->
+<form (ngSubmit)="uploadFile()">
+  <div class="form-group">
+    <label for="fileInput">Select file to upload:</label>
+    <input type="file" class="form-control" id="fileInput" (change)="onFileSelected($event)" required>
+  </div>
+  <div class="form-group">
+    <label for="fileNameInput">File name:</label>
+    <input type="text" class="form-control" id="fileNameInput" [(ngModel)]="fileName" name="fileName" placeholder="Enter file name for the upload" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Upload File</button>
+</form>
+
+<!-- Display Upload Status -->
+<div *ngIf="uploadStatus" class="mt-2">
+  {{ uploadStatus }}
+</div>
+
+<!-- User Validation Form -->
+<form (ngSubmit)="checkUser()">
+  <div class="form-group">
+    <label for="usernameInput">Username:</label>
+    <input type="text" class="form-control" id="usernameInput" [(ngModel)]="username" name="username" placeholder="Enter your username" required>
+  </div>
+  <div class="form-group">
+    <label for="passwordInput">Password:</label>
+    <input type="password" class="form-control" id="passwordInput" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Check User</button>
+</form>
+
+<!-- Display Status -->
+<div *ngIf="userStatus" class="mt-2">
+  {{ userStatus }}
+</div>

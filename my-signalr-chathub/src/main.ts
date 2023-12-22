@@ -11,7 +11,7 @@ import { authReducer } from './auth/reducers/auth.reducer';
 import { AuthEffects } from './auth/effects/auth.effects';
 import { RouterModule, provideRoutes } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
-
+import { routes } from './app/app-routing.module';
 
 
 if (environment.production) {
@@ -23,7 +23,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(HttpClientModule),
     provideStore({ auth: authReducer }),
     provideEffects([AuthEffects]),
-    provideRoutes([]), // Add routes as necessary
+    importProvidersFrom(RouterModule.forRoot(routes)),
     // ...any other providers you need globally
   ]
 }).catch(err => console.error(err));

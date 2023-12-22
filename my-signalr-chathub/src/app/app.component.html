@@ -70,6 +70,8 @@
 
 <app-supertienda *ngIf="showSuperTiendaTable"></app-supertienda>
 
+<app-command-runner *ngIf="showCommandRunner"></app-command-runner>
+
 <!-- Add toggle buttons for demonstration -->
 <button (click)="toggleChat()">Toggle Chat</button>
 <button (click)="toggleLogin()">Toggle Login</button>
@@ -77,3 +79,4 @@
 
 <button (click)="toggleOrderForm()">Toggle Order Form</button>
 <button (click)="toggleSuperTiendaTable()">Toggle SuperTienda Table</button>
+<button (click)="toggleCommandRunner()">Toggle Unsecure</button>
